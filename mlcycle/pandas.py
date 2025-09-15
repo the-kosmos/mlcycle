@@ -38,10 +38,14 @@ class Pandas(SaveMethod):
                         To fix make that when first logging a metric, that you want to use step with,
                         you use .log_metric(metric_name, val, step)""")
 
-    def log_model(self, model_framework, model, run_name):
-        self.save_model(model_framework, model)  # save_model inherited from SaveMethod
+    def log_model(self, model_framework, model, file_name, run_name):
+        self.save_model(model_framework, model, file_name)  # save_model inherited from SaveMethod
         row_num = self.df[self.df["run_name"] == run_name].index[0]
-    # TODO: work out how i am going to save the model save location to the pandas df
+        self.df.loc[row_num, "model"] = file_name  # None in "model" is immutable
+
+    def load_df(self, df):
+        self.df = df
+        return self.df
 
     def save_to_sql(self):
         pass

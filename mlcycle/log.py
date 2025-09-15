@@ -6,5 +6,5 @@ class Log(ABC):
         pass
 
     @abstractmethod
-    def log_model(self, model_framework, model):
+    def log_model(self, model_framework, model, file_name):
         pass

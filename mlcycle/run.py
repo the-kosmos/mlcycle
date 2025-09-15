@@ -8,14 +8,14 @@ class Run(Log):
         self.run_name = run_name
         self.experiment = experiment  # composition
         self.experiment.save_method.create_row(self)
-        self.df = self.experiment.save_method.df
+        # self.df = self.experiment.save_method.df
         # self.row_num = self.df[self.df["run_name"] == self.run_name].index[0]
 
     def log_metric(self, metric_name, val, step=None):
         self.experiment.save_method.log_metric(metric_name, val, step, self.run_name)
 
-    def log_model(self, model_framework, model):  # TODO: will probably add save_location here
-        self.experiment.save_method.log_model(model_framework, model, self.run_name)
+    def log_model(self, model_framework, model, file_name="model.pkl"):
+        self.experiment.save_method.log_model(model_framework, model, file_name, self.run_name)
 
 # TODO: need to loosen the coupling between Run and the particular SaveMethod, Pandas.
 # TODO: currently the methods log_metric and log_model in Run only work with Pandas SaveMethod.
